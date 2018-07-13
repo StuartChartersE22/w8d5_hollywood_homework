@@ -5,6 +5,8 @@ import behaviours.IDB;
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "studios")
 public class Studio implements IDB {
 
     private int id;
@@ -45,7 +47,7 @@ public class Studio implements IDB {
         this.bank = bank;
     }
 
-    @OneToMany
+    @OneToMany(mappedBy = "studio", fetch = FetchType.LAZY)
     public List<Film> getFilms() {
         return films;
     }

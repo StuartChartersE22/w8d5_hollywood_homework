@@ -6,26 +6,27 @@ import behaviours.IDB;
 import javax.persistence.*;
 import java.util.Map;
 
+@Entity
+@Table(name = "films")
 public class Film implements IDB {
 
     private int id;
     private String title;
-    private Act leadingMan;
-    private Act leadingLady;
     private Director director;
     private Map<IAct, String> cast;
     private int budget;
     private GenreType genre;
     private Studio studio;
 
-    public Film(String title, Act leadingMan, Act leadingLady, Director director, int budget, GenreType genre, Studio studio) {
+    public Film(){}
+
+    public Film(String title, Director director, int budget, GenreType genre, Studio studio, Map<IAct, String> cast) {
         this.title = title;
-        this.leadingMan = leadingMan;
-        this.leadingLady = leadingLady;
         this.director = director;
         this.budget = budget;
         this.genre = genre;
         this.studio = studio;
+        this.cast = cast;
     }
 
     @Id
@@ -47,25 +48,7 @@ public class Film implements IDB {
     }
 
     @ManyToOne
-    @Column(name = "leading_man")
-    public Act getLeadingMan() {
-        return leadingMan;
-    }
-    public void setLeadingMan(Act leadingMan) {
-        this.leadingMan = leadingMan;
-    }
-
-    @ManyToOne
-    @Column(name = "leading_lady")
-    public Act getLeadingLady() {
-        return leadingLady;
-    }
-    public void setLeadingLady(Act leadingLady) {
-        this.leadingLady = leadingLady;
-    }
-
-    @ManyToOne
-    @Column(name = "director")
+    @JoinColumn(name = "director_id", nullable = false)
     public Director getDirector() {
         return director;
     }
@@ -74,9 +57,12 @@ public class Film implements IDB {
     }
 
     @ManyToMany
-    public Map<IAct, String> getCast() {
-        return cast;
-    }
+    @JoinTable(
+            name = "films_acts",
+            joinColumns = {@JoinColumn(name = "act_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "film_id", nullable = false, updatable = false)}
+    )
+    @MapKeyColumn(name = "act_id")
     public void setCast(Map<IAct, String> cast) {
         this.cast = cast;
     }
@@ -98,7 +84,7 @@ public class Film implements IDB {
     }
 
     @ManyToOne
-    @Column(name = "production_studio")
+    @JoinColumn(name = "studio_id", nullable = false)
     public Studio getStudio() {
         return studio;
     }

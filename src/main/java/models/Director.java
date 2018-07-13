@@ -1,8 +1,6 @@
 package models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -17,7 +15,7 @@ public class Director extends BizPerson {
         super(name, bank);
     }
 
-
+    @OneToMany(mappedBy = "director", fetch = FetchType.LAZY)
     public List<Film> getFilms() {
         return films;
     }
