@@ -1,8 +1,10 @@
 import behaviours.IAct;
 import db.DBHelper;
+import db.dbhelpers.DBFilm;
 import models.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Runner {
@@ -24,8 +26,12 @@ public class Runner {
         Studio studio = new Studio("Warner Bros.", 239809834);
         DBHelper.save(studio);
 
-        Film film = new Film("Hunter", director, 12343, GenreType.COMEDY, studio, cast);
+        Film film = new Film("Hunter", director, 12343, GenreType.COMEDY, studio);
         DBHelper.save(film);
+
+        DBFilm.addCastToFilm(film, cast);
+
+//        List<IAct> castForFilm = DBFilm.getCastMembersForFilm(film);
 
         System.exit(0);
     }

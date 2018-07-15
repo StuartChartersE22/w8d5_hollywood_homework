@@ -2,7 +2,6 @@ package models;
 
 import behaviours.IAct;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
 import java.util.Map;
 
@@ -25,6 +24,9 @@ public class Actor extends BizPerson implements IAct {
             inverseJoinColumns = {@JoinColumn(name = "act_id",  nullable = false, updatable = false)}
     )
     @MapKeyColumn(name = "film_id")
+    private Map<Film, String> getRoles(){
+        return this.roles;
+    }
     public void setRoles(Map<Film, String> roles) {
         this.roles = roles;
     }

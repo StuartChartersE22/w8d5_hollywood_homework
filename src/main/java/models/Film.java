@@ -4,6 +4,7 @@ import behaviours.IAct;
 import behaviours.IDB;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.Map;
 
 @Entity
@@ -20,13 +21,13 @@ public class Film implements IDB {
 
     public Film(){}
 
-    public Film(String title, Director director, int budget, GenreType genre, Studio studio, Map<IAct, String> cast) {
+    public Film(String title, Director director, int budget, GenreType genre, Studio studio) {
         this.title = title;
         this.director = director;
         this.budget = budget;
         this.genre = genre;
         this.studio = studio;
-        this.cast = cast;
+        this.cast = new HashMap<IAct, String>();
     }
 
     @Id
@@ -63,6 +64,9 @@ public class Film implements IDB {
             inverseJoinColumns = {@JoinColumn(name = "film_id", nullable = false, updatable = false)}
     )
     @MapKeyColumn(name = "act_id")
+    public Map<IAct, String> getCast(){
+        return this.cast;
+    }
     public void setCast(Map<IAct, String> cast) {
         this.cast = cast;
     }
@@ -90,5 +94,9 @@ public class Film implements IDB {
     }
     public void setStudio(Studio studio) {
         this.studio = studio;
+    }
+
+    public void addCast(Map<IAct,String> cast) {
+        this.cast.putAll(cast);
     }
 }
