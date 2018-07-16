@@ -4,7 +4,9 @@ import behaviours.IAct;
 import behaviours.IDB;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -18,6 +20,7 @@ public class Film implements IDB {
     private int budget;
     private GenreType genre;
     private Studio studio;
+    private List<Actor> actors;
 
     public Film(){}
 
@@ -27,7 +30,8 @@ public class Film implements IDB {
         this.budget = budget;
         this.genre = genre;
         this.studio = studio;
-        this.cast = new HashMap<IAct, String>();
+//        this.cast = new HashMap<IAct, String>();
+        this.actors = new ArrayList<Actor>();
     }
 
     @Id
@@ -63,13 +67,22 @@ public class Film implements IDB {
             joinColumns = {@JoinColumn(name = "act_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "film_id", nullable = false, updatable = false)}
     )
-    @MapKeyColumn(name = "act_id")
-    public Map<IAct, String> getCast(){
-        return this.cast;
+    public List<Actor> getActors() {
+        return actors;
     }
-    public void setCast(Map<IAct, String> cast) {
-        this.cast = cast;
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
     }
+
+//    @ManyToMany
+//    @JoinTable(name = "films_acts")
+//    @MapKeyColumn(name = "act_id")
+//    public Map<IAct, String> getCast(){
+//        return this.cast;
+//    }
+//    public void setCast(Map<IAct, String> cast) {
+//        this.cast = cast;
+//    }
 
     @Column(name = "budget")
     public int getBudget() {
@@ -96,7 +109,8 @@ public class Film implements IDB {
         this.studio = studio;
     }
 
-    public void addCast(Map<IAct,String> cast) {
-        this.cast.putAll(cast);
+    public void addCast(Map<Actor,String> cast) {
+        this.actors.addAll(cast.keySet());
+//        this.cast.putAll(cast.keySet());
     }
 }

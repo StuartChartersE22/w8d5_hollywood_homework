@@ -16,7 +16,7 @@ public class Runner {
         Actor actor2 = new Actor("Jane", 200000);
         DBHelper.save(actor2);
 
-        Map<IAct, String> cast = new HashMap<IAct, String>();
+        Map<Actor, String> cast = new HashMap<Actor, String>();
         cast.put(actor1, "Lead man");
         cast.put(actor2, "Lead lady");
 
