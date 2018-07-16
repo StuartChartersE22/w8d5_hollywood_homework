@@ -5,6 +5,7 @@ import db.DBHelper;
 import models.Actor;
 import models.Film;
 
+import java.util.List;
 import java.util.Map;
 
 public class DBFilm extends DBHelper {
@@ -14,7 +15,7 @@ public class DBFilm extends DBHelper {
         update(film);
     }
 
-//    public static List<IAct> getCastMembersForFilm(Film film){
-//        return getAssociationsForAnObject(film, IAct.class, "cast");
+//    public static List<Actor> getCastMembersForFilm(Film film){
+//        return getAssociationsForAnObject(film, Actor.class, "cast");
 //    }
 }

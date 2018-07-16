@@ -4,6 +4,7 @@ import db.dbhelpers.DBFilm;
 import models.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Runner {
@@ -30,7 +31,7 @@ public class Runner {
 
         DBFilm.addCastToFilm(film, cast);
 
-//        List<IAct> castForFilm = DBFilm.getCastMembersForFilm(film);
+//        List<Actor> castForFilm = DBFilm.getCastMembersForFilm(film);
 
         System.exit(0);
     }

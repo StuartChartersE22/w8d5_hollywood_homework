@@ -61,19 +61,6 @@ public class Film implements IDB {
         this.director = director;
     }
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "films_acts",
-//            joinColumns = {@JoinColumn(name = "act_id", nullable = false, updatable = false)},
-//            inverseJoinColumns = {@JoinColumn(name = "film_id", nullable = false, updatable = false)}
-//    )
-//    public List<IAct> getActors() {
-//        return actors;
-//    }
-//    public void setActors(List<IAct> actors) {
-//        this.actors = actors;
-//    }
-
     @ManyToMany
     @JoinTable(
             name = "films_acts",joinColumns = {@JoinColumn(name = "act_id", nullable = false, updatable = false)},
