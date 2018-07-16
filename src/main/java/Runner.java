@@ -1,5 +1,6 @@
 import behaviours.IAct;
 import db.DBHelper;
+import db.dbhelpers.DBAct;
 import db.dbhelpers.DBFilm;
 import models.*;
 
@@ -31,7 +32,8 @@ public class Runner {
 
         DBFilm.addCastToFilm(film, cast);
 
-//        List<Actor> castForFilm = DBFilm.getCastMembersForFilm(film);
+        List<Actor> castForFilm = DBFilm.getCastMembersForFilm(film);
+        List<Film> filmsForActor = DBAct.getFilmsforActor(actor1);
 
         System.exit(0);
     }
