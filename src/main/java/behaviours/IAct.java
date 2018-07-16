@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface IAct extends IDB {
 
-    void setRoles(Map<Film, String> roles);
+    void setRoles(Map<String, Film> roles);
 }

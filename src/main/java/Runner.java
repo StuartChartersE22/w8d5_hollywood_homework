@@ -4,21 +4,20 @@ import db.dbhelpers.DBFilm;
 import models.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Runner {
 
     public static void main(String[] args) {
 
-        Actor actor1 = new Actor("Bill", 20000000);
+        models.Actor actor1 = new models.Actor("Bill", 20000000);
         DBHelper.save(actor1);
-        Actor actor2 = new Actor("Jane", 200000);
+        models.Actor actor2 = new models.Actor("Jane", 200000);
         DBHelper.save(actor2);
 
-        Map<Actor, String> cast = new HashMap<Actor, String>();
-        cast.put(actor1, "Lead man");
-        cast.put(actor2, "Lead lady");
+        Map<String, Actor> cast = new HashMap<String, Actor>();
+        cast.put("Lead man", actor1);
+        cast.put("Lead lady", actor2);
 
         Director director = new Director("Greg", 234234);
         DBHelper.save(director);

@@ -5,12 +5,11 @@ import db.DBHelper;
 import models.Actor;
 import models.Film;
 
-import java.util.List;
 import java.util.Map;
 
 public class DBFilm extends DBHelper {
 
-    public static void addCastToFilm(Film film, Map<Actor, String> cast){
+    public static void addCastToFilm(Film film, Map<String, Actor> cast){
         film.addCast(cast);
         update(film);
     }

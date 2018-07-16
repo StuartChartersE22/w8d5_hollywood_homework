@@ -16,7 +16,7 @@ public class Film implements IDB {
     private int id;
     private String title;
     private Director director;
-    private Map<IAct, String> cast;
+    private Map<String, Actor> cast;
     private int budget;
     private GenreType genre;
     private Studio studio;
@@ -30,7 +30,7 @@ public class Film implements IDB {
         this.budget = budget;
         this.genre = genre;
         this.studio = studio;
-//        this.cast = new HashMap<IAct, String>();
+        this.cast = new HashMap<String, Actor>();
         this.actors = new ArrayList<Actor>();
     }
 
@@ -61,28 +61,31 @@ public class Film implements IDB {
         this.director = director;
     }
 
+//    @ManyToMany
+//    @JoinTable(
+//            name = "films_acts",
+//            joinColumns = {@JoinColumn(name = "act_id", nullable = false, updatable = false)},
+//            inverseJoinColumns = {@JoinColumn(name = "film_id", nullable = false, updatable = false)}
+//    )
+//    public List<IAct> getActors() {
+//        return actors;
+//    }
+//    public void setActors(List<IAct> actors) {
+//        this.actors = actors;
+//    }
+
     @ManyToMany
     @JoinTable(
-            name = "films_acts",
-            joinColumns = {@JoinColumn(name = "act_id", nullable = false, updatable = false)},
+            name = "films_acts",joinColumns = {@JoinColumn(name = "act_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "film_id", nullable = false, updatable = false)}
     )
-    public List<Actor> getActors() {
-        return actors;
+    @MapKeyColumn(name = "role")
+    public Map<String, Actor> getCast(){
+        return this.cast;
     }
-    public void setActors(List<Actor> actors) {
-        this.actors = actors;
+    public void setCast(Map<String, Actor> cast) {
+        this.cast = cast;
     }
-
-//    @ManyToMany
-//    @JoinTable(name = "films_acts")
-//    @MapKeyColumn(name = "act_id")
-//    public Map<IAct, String> getCast(){
-//        return this.cast;
-//    }
-//    public void setCast(Map<IAct, String> cast) {
-//        this.cast = cast;
-//    }
 
     @Column(name = "budget")
     public int getBudget() {
@@ -109,8 +112,8 @@ public class Film implements IDB {
         this.studio = studio;
     }
 
-    public void addCast(Map<Actor,String> cast) {
-        this.actors.addAll(cast.keySet());
-//        this.cast.putAll(cast.keySet());
+    public void addCast(Map<String, Actor> cast) {
+        this.actors.addAll(cast.values());
+        this.cast.putAll(cast);
     }
 }
